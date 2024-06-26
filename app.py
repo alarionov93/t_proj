@@ -11,9 +11,10 @@ def hello():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.args.get('username')
-        password = request.args.get('password')
-        print(username, password)
+        username = request.form.get('username')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') else False
+        print(username, password, remember)
         # login user
         return redirect(url_for('hello'), code=302)
     else:
