@@ -5,4 +5,11 @@ web = Blueprint('web', __name__)
 
 @web.route("/")
 def hello():
-    return render_template("base.html", name='Alex')
+
+    try:
+        u = current_user.name
+        email = current_user.email
+    except AttributeError:
+        u = None
+        email = None
+    return render_template("base.html", email=email, name=u)

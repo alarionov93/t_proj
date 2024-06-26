@@ -31,6 +31,9 @@ def create_app():
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    from .web import web as web_blueprint
+    app.register_blueprint(web_blueprint)
+
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
@@ -49,7 +52,7 @@ def create_app():
         with app.app_context():
             
             try:
-                new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), admin=admin)
+                new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'), admin=admin)
                 # add the new user to the database
                 db.session.add(new_user)
                 db.session.commit()
@@ -59,6 +62,7 @@ def create_app():
 
         return new_user
     
+    print(init_db)
     if init_db == '1':
         recreate_db(app=app)
         passwd = getpass()

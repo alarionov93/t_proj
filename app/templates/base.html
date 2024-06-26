@@ -6,12 +6,12 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.css') }}">
 </head>
 <body>
-	{% if username %}
-		<p>Hello, {{ username }}!</p>
-		<a href="{{ url_for('logout') }}">Logout</a>
+	{% if name %}
+		<p>Hello, {{ name }}!</p>
+		<a href="{{ url_for('auth.logout') }}">Logout</a>
 	{% else %}
 		<p>Hello!</p>
-		<a href="{{ url_for('login') }}">Login</a>
+		<a href="{{ url_for('auth.login') }}">Login</a>
 	{% endif %}
 </body>
 </html>
